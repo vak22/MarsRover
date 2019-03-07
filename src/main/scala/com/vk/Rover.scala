@@ -20,7 +20,7 @@ object Rover extends App {
     instruction match {
 
       case "f" =>
-        moveForward(15, p)
+        moveForward(16, p)
         p
 
       case "rc" =>
@@ -37,6 +37,9 @@ object Rover extends App {
   }
 
   def moveForward(steps: Int, p: Position): Position = {
+
+    val gridMax = 10
+
     steps match {
 
       case num =>
@@ -49,9 +52,8 @@ object Rover extends App {
             newPosition
           } else {
 
-            val newCoordinates = Coordinates(0, num - 10)
+            val newCoordinates = Coordinates(0, num - gridMax)
             val newPosition = Position(newCoordinates, p.direction)
-            println(newPosition)
             newPosition
           }
 
@@ -64,7 +66,7 @@ object Rover extends App {
             newPosition
           } else {
 
-            val newCoordinates = Coordinates(0, -10 - num)
+            val newCoordinates = Coordinates(0, num - gridMax)
             val newPosition = Position(newCoordinates, p.direction)
             newPosition
           }
@@ -75,29 +77,25 @@ object Rover extends App {
 
             val newCoordinates = Coordinates(-num, 0)
             val newPosition = Position(newCoordinates, p.direction)
-            println(newPosition)
             newPosition
           } else {
 
-            val newCoordinates = Coordinates(num - 10, 0)
+            val newCoordinates = Coordinates(num - gridMax, 0)
             val newPosition = Position(newCoordinates, p.direction)
-            println(newPosition)
             newPosition
           }
 
-        } else if (p.direction == Direction("w")) {
+        } else if (p.direction == Direction("e")) {
 
           if (num <= 10) {
 
             val newCoordinates = Coordinates(num, 0)
             val newPosition = Position(newCoordinates, p.direction)
-            println(newPosition)
             newPosition
           } else {
 
-            val newCoordinates = Coordinates(num - 10, 0)
+            val newCoordinates = Coordinates(num - gridMax, 0)
             val newPosition = Position(newCoordinates, p.direction)
-            println(newPosition)
             newPosition
           }
         } else {
@@ -163,5 +161,5 @@ object Rover extends App {
     }
   }
 
-  getInstructions(Position(Coordinates(0, 0), Direction("s")), "f")
+  getInstructions(Position(Coordinates(0, 0), Direction("w")), "f")
 }
