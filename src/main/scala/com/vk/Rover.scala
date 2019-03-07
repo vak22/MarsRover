@@ -17,11 +17,10 @@ object Rover extends App {
   )
 
   def getInstructions(p: Position, instruction: String): Position = {
-
     instruction match {
 
       case "f" =>
-        moveForward(5, p)
+        moveForward(15, p)
         p
 
       case "rc" =>
@@ -38,36 +37,76 @@ object Rover extends App {
   }
 
   def moveForward(steps: Int, p: Position): Position = {
-
     steps match {
 
       case num =>
         if (p.direction == Direction("n")) {
-          val newCoordinates = Coordinates(0, num)
-          val newPosition = Position(newCoordinates, p.direction)
-          newPosition
+
+          if (num <= 10) {
+
+            val newCoordinates = Coordinates(0, num)
+            val newPosition = Position(newCoordinates, p.direction)
+            newPosition
+          } else {
+
+            val newCoordinates = Coordinates(0, num - 10)
+            val newPosition = Position(newCoordinates, p.direction)
+            println(newPosition)
+            newPosition
+          }
 
         } else if (p.direction == Direction("s")) {
-          val newCoordinates = Coordinates(0, -num)
-          val newPosition = Position(newCoordinates, p.direction)
-          newPosition
+
+          if (num <= 10) {
+
+            val newCoordinates = Coordinates(0, -num)
+            val newPosition = Position(newCoordinates, p.direction)
+            newPosition
+          } else {
+
+            val newCoordinates = Coordinates(0, -10 - num)
+            val newPosition = Position(newCoordinates, p.direction)
+            newPosition
+          }
 
         } else if (p.direction == Direction("w")) {
-          val newCoordinates = Coordinates(-num, 0)
-          val newPosition = Position(newCoordinates, p.direction)
-          println(newPosition)
-          newPosition
 
+          if (num <= 10) {
+
+            val newCoordinates = Coordinates(-num, 0)
+            val newPosition = Position(newCoordinates, p.direction)
+            println(newPosition)
+            newPosition
+          } else {
+
+            val newCoordinates = Coordinates(num - 10, 0)
+            val newPosition = Position(newCoordinates, p.direction)
+            println(newPosition)
+            newPosition
+          }
+
+        } else if (p.direction == Direction("w")) {
+
+          if (num <= 10) {
+
+            val newCoordinates = Coordinates(num, 0)
+            val newPosition = Position(newCoordinates, p.direction)
+            println(newPosition)
+            newPosition
+          } else {
+
+            val newCoordinates = Coordinates(num - 10, 0)
+            val newPosition = Position(newCoordinates, p.direction)
+            println(newPosition)
+            newPosition
+          }
         } else {
-          val newCoordinates = Coordinates(num, 0)
-          val newPosition = Position(newCoordinates, p.direction)
-          println(newPosition)
-          newPosition
+
+          moveForward(steps, p)
         }
 
       case _ =>
         moveForward(steps, p)
-
     }
 
   }
@@ -124,5 +163,5 @@ object Rover extends App {
     }
   }
 
-  getInstructions(Position(Coordinates(0, 0), Direction("n")), "f")
+  getInstructions(Position(Coordinates(0, 0), Direction("s")), "f")
 }
