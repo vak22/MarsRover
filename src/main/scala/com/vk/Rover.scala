@@ -1,7 +1,5 @@
 package com.vk
 
-//import scala.io.StdIn.readLine
-
 object Rover extends App {
 
   case class Coordinates(
@@ -32,16 +30,15 @@ object Rover extends App {
         p
 
       case "rotate clockwise" =>
-        rotateClockwise(Direction("East"))
+        rotateClockwise(p)
         p
 
       case "rotate anticlockwise" =>
-        rotateAntiClockwise(Direction("West"))
+        rotateAntiClockwise(p)
         p
 
       case _ =>
-        //What do here?
-        p
+        getInstructions(p,instruction)
     }
   }
 
@@ -52,69 +49,66 @@ object Rover extends App {
       case 1 =>
         val newCoordinates = Coordinates(1, 0)
         val newPosition = Position(newCoordinates, p.direction)
-        println(newPosition)
         newPosition
 
       case _ =>
-        //What do here?
-        p
+        moveForward(steps,p)
 
     }
 
   }
 
-  def rotateClockwise(d: Direction): Direction = {
+  def rotateClockwise(p: Position): Position = {
 
-    d.facing match {
+    p.direction match {
 
-      case "North" =>
-        val newDirection = Direction("East")
-        newDirection
+      case Direction("North") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("East"))
+        newPosition
 
-      case "East" =>
-        val newDirection = Direction("South")
-        newDirection
+      case Direction("East") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("South"))
+        newPosition
 
-      case "South" =>
-        val newDirection = Direction("West")
-        newDirection
+      case Direction("South") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("West"))
+        newPosition
 
-      case "West" =>
-        val newDirection = Direction("North")
-        newDirection
+      case Direction("West") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("North"))
+        newPosition
 
       case _ =>
-        //What do here?
-        rotateClockwise(d)
+        rotateClockwise(p)
     }
 
   }
 
-  def rotateAntiClockwise(d: Direction): Direction = {
+  def rotateAntiClockwise(p: Position): Position = {
 
-    d.facing match {
+    p.direction match {
 
-      case "North" =>
-        val newDirection = Direction("West")
-        newDirection
+      case Direction("North") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("West"))
+        newPosition
 
-      case "West" =>
-        val newDirection = Direction("South")
-        newDirection
+      case Direction("West") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("South"))
+        newPosition
 
-      case "South" =>
-        val newDirection = Direction("East")
-        newDirection
+      case Direction("South") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("East"))
+        newPosition
 
-      case "East" =>
-        val newDirection = Direction("North")
-        newDirection
+      case Direction("East") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("North"))
+        newPosition
 
       case _ =>
-        //What do here?
-        d
+      rotateAntiClockwise(p)
+
     }
   }
 
-  getInstructions(Position(Coordinates(0, 0), Direction("North")), "forward")
+  getInstructions(Position(Coordinates(0, 0), Direction("North")), "rotate clockwise")
 }
