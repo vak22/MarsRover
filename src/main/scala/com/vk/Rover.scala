@@ -1,112 +1,120 @@
 package com.vk
 
+//import scala.io.StdIn.readLine
+
 object Rover extends App {
 
-
   case class Coordinates(
-                          x: Int,
-                          y: Int
-                        )
+      x: Int,
+      y: Int
+  )
 
   case class Direction(
-                        facing: String,
-                      )
+      facing: String,
+  )
 
   case class Position(
-                       coordinates: Coordinates,
-                       direction: Direction
-                     )
+      coordinates: Coordinates,
+      direction: Direction
+  )
 
+  case class Grid(
+      maxX: Int = 10,
+      maxY: Int = 10
+  )
 
-  def grid(): Unit = ???
+  def getInstructions(p: Position, instruction: String): Position = {
 
-
-  def startingPosition(): Position = {
-
-    val startingCoordinates = Coordinates(0, 0)
-    val startingDirection = Direction("North")
-
-    val startingPosition = Position(startingCoordinates, startingDirection)
-
-    println(s"The Mars Rover is at the $startingCoordinates facing $startingDirection")
-
-    startingPosition
-
-  }
-
-
-  def getInstructions(position: Position): Unit = {
-
-    readLine("What way do you want to move?") match {
+    instruction match {
 
       case "forward" =>
-        moveForward()
-
-      //        val newPostion = Position(newCoordinates, Direction.facing)
+        moveForward(1, p)
+        p
 
       case "rotate clockwise" =>
-        rotateClockwise()
+        rotateClockwise(Direction("East"))
+        p
 
       case "rotate anticlockwise" =>
-        rotateAntiClockwise()
+        rotateAntiClockwise(Direction("West"))
+        p
 
-      case "stop" => println("Stopped")
-
-      case _ => println("That is not a valid movement, please choose either forward, rotate clockwise, or rotate anticlockwise.")
-        getInstructions(position)
+      case _ =>
+        //What do here?
+        p
     }
+  }
 
-    position
+  def moveForward(steps: Int, p: Position): Position = {
 
+    steps match {
 
-    def moveForward(): Coordinates = {
+      case 1 =>
+        val newCoordinates = Coordinates(1, 0)
+        val newPosition = Position(newCoordinates, p.direction)
+        println(newPosition)
+        newPosition
 
-      readLine("How many positions do you want to move?").toInt match {
+      case _ =>
+        //What do here?
+        p
 
-        case num => {
-
-          val newCoordinates = Coordinates(1, 0)
-
-          val newDirection = Direction("North")
-
-          println(s"The Mars Rover is at the $newCoordinates facing $newDirection")
-          newCoordinates
-
-        }
-
-        case _ => println("That is not a valid movement, please enter a number.")
-          moveForward()
-
-      }
-
-    }
-
-
-    def rotateClockwise(): Direction = {
-
-      val newDirection = new Direction("East")
-
-      println(s"You are now facing $newDirection")
-
-      getInstructions(position)
-
-      newDirection
-    }
-
-
-    def rotateAntiClockwise(): Direction = {
-
-      val newDirection = new Direction("West")
-
-      println(s"You are now facing $newDirection")
-
-      getInstructions(position)
-
-      newDirection
     }
 
   }
 
-  //getInstructions(Coordinates(0,0), Direction)
+  def rotateClockwise(d: Direction): Direction = {
 
+    d.facing match {
+
+      case "North" =>
+        val newDirection = Direction("East")
+        newDirection
+
+      case "East" =>
+        val newDirection = Direction("South")
+        newDirection
+
+      case "South" =>
+        val newDirection = Direction("West")
+        newDirection
+
+      case "West" =>
+        val newDirection = Direction("North")
+        newDirection
+
+      case _ =>
+        //What do here?
+        rotateClockwise(d)
+    }
+
+  }
+
+  def rotateAntiClockwise(d: Direction): Direction = {
+
+    d.facing match {
+
+      case "North" =>
+        val newDirection = Direction("West")
+        newDirection
+
+      case "West" =>
+        val newDirection = Direction("South")
+        newDirection
+
+      case "South" =>
+        val newDirection = Direction("East")
+        newDirection
+
+      case "East" =>
+        val newDirection = Direction("North")
+        newDirection
+
+      case _ =>
+        //What do here?
+        d
+    }
+  }
+
+  getInstructions(Position(Coordinates(0, 0), Direction("North")), "forward")
 }
