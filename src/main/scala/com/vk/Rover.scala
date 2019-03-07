@@ -16,29 +16,24 @@ object Rover extends App {
       direction: Direction
   )
 
-  case class Grid(
-      maxX: Int = 10,
-      maxY: Int = 10
-  )
-
   def getInstructions(p: Position, instruction: String): Position = {
 
     instruction match {
 
-      case "forward" =>
-        moveForward(1, p)
+      case "f" =>
+        moveForward(5, p)
         p
 
-      case "rotate clockwise" =>
+      case "rc" =>
         rotateClockwise(p)
         p
 
-      case "rotate anticlockwise" =>
+      case "rac" =>
         rotateAntiClockwise(p)
         p
 
       case _ =>
-        getInstructions(p,instruction)
+        getInstructions(p, instruction)
     }
   }
 
@@ -46,13 +41,32 @@ object Rover extends App {
 
     steps match {
 
-      case 1 =>
-        val newCoordinates = Coordinates(1, 0)
-        val newPosition = Position(newCoordinates, p.direction)
-        newPosition
+      case num =>
+        if (p.direction == Direction("n")) {
+          val newCoordinates = Coordinates(0, num)
+          val newPosition = Position(newCoordinates, p.direction)
+          newPosition
+
+        } else if (p.direction == Direction("s")) {
+          val newCoordinates = Coordinates(0, -num)
+          val newPosition = Position(newCoordinates, p.direction)
+          newPosition
+
+        } else if (p.direction == Direction("w")) {
+          val newCoordinates = Coordinates(-num, 0)
+          val newPosition = Position(newCoordinates, p.direction)
+          println(newPosition)
+          newPosition
+
+        } else {
+          val newCoordinates = Coordinates(num, 0)
+          val newPosition = Position(newCoordinates, p.direction)
+          println(newPosition)
+          newPosition
+        }
 
       case _ =>
-        moveForward(steps,p)
+        moveForward(steps, p)
 
     }
 
@@ -62,20 +76,20 @@ object Rover extends App {
 
     p.direction match {
 
-      case Direction("North") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("East"))
+      case Direction("n") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("e"))
         newPosition
 
-      case Direction("East") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("South"))
+      case Direction("e") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("s"))
         newPosition
 
-      case Direction("South") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("West"))
+      case Direction("s") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("w"))
         newPosition
 
-      case Direction("West") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("North"))
+      case Direction("w") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("n"))
         newPosition
 
       case _ =>
@@ -88,27 +102,27 @@ object Rover extends App {
 
     p.direction match {
 
-      case Direction("North") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("West"))
+      case Direction("n") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("w"))
         newPosition
 
-      case Direction("West") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("South"))
+      case Direction("w") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("s"))
         newPosition
 
-      case Direction("South") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("East"))
+      case Direction("s") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("e"))
         newPosition
 
-      case Direction("East") =>
-        val newPosition = Position(Coordinates(0, 0), Direction("North"))
+      case Direction("e") =>
+        val newPosition = Position(Coordinates(0, 0), Direction("n"))
         newPosition
 
       case _ =>
-      rotateAntiClockwise(p)
+        rotateAntiClockwise(p)
 
     }
   }
 
-  getInstructions(Position(Coordinates(0, 0), Direction("North")), "rotate clockwise")
+  getInstructions(Position(Coordinates(0, 0), Direction("n")), "f")
 }
