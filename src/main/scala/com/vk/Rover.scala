@@ -30,10 +30,28 @@ object Rover {
 
   def moveForwardBy(r: Rover, steps: Int): Rover = {
 
-    if (steps == 0) r else moveForwardBy(moveForward(r), steps - 1)
+    if (steps == 0) {
+      offGrid(r)
+      r
+    } else moveForwardBy(moveForward(r), steps - 1)
+
+  }
+
+  def offGrid(r: Rover): Rover = {
+
+    val grid: Coordinates = Coordinates(10, 10)
+
+    if (r.coordinates.y > grid.y && r.coordinates.x > grid.x)
+      Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y - grid.y),
+            r.direction)
+    else if (r.coordinates.y > grid.y)
+      Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y), r.direction)
+    else
+      Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y), r.direction)
 
   }
 
   Instruction.getInstructions(Rover(Coordinates.zero, Direction.North),
                               Instruction.Forward)
+
 }

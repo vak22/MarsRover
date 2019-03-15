@@ -14,7 +14,7 @@ object Instruction {
     i match {
 
       case Instruction.Forward =>
-        Rover.moveForwardBy(r, 2)
+        Rover.moveForwardBy(r, 12)
         Rover(r.coordinates, r.direction)
 
       case Instruction.RotateClockwise =>
