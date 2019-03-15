@@ -46,8 +46,9 @@ object Rover {
             r.direction)
     else if (r.coordinates.y > grid.y)
       Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y), r.direction)
-    else
+    else if (r.coordinates.x > grid.x)
       Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y), r.direction)
+    else r
 
   }
 
