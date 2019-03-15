@@ -9,7 +9,7 @@ final case class Rover(
   def moveForwardBy(steps: Int): Rover = Rover.moveForwardBy(this, steps)
 }
 
-object Rover extends App {
+object Rover {
 
   def moveForward(r: Rover): Rover = {
     r.direction match {
@@ -34,6 +34,6 @@ object Rover extends App {
 
   }
 
-  Instruction.getInstructions(Rover(Coordinates(0, 0), Direction.North),
+  Instruction.getInstructions(Rover(Coordinates.zero, Direction.North),
                               Instruction.Forward)
 }
