@@ -6,7 +6,7 @@ class CoordinatesSpec extends FunSpec with Matchers {
 
   describe("moving coordinates") {
 
-    it("should be") {
+    it("should be able to move in a direction") {
 
       Coordinates(5, 5).moveUp shouldEqual Coordinates.moveUp(Coordinates(5, 5))
 
@@ -49,16 +49,23 @@ class CoordinatesSpec extends FunSpec with Matchers {
 
     }
 
-//    it("should be able to move a number of steps in any direction") {
-//      val actual =
-//        Coordinates(5, 5)
-//          .moveLeftBy(4)
-//
-//      val expected =
-//        Coordinates(1, 5)
-//
-//      actual shouldEqual expected
-//    }
+    it("should be able to move a number of steps in any direction") {
+      val actual =
+        Rover.moveForwardBy(Rover(Coordinates(0, 0), Direction.North), 7)
+
+      val expected =
+        Rover(Coordinates(0, 7), Direction.North)
+
+      actual shouldEqual expected
+
+      val actual1 =
+        Coordinates.moveUpBy(Coordinates(0, 0), 7)
+
+      val expected1 =
+        Coordinates(0, 7)
+
+      actual1 shouldEqual expected1
+    }
   }
 
 }

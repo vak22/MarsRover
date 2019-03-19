@@ -30,6 +30,21 @@ object Rover {
 
   def moveForwardBy(r: Rover, steps: Int): Rover = {
 
+    r.direction match {
+      case Direction.North =>
+        Rover(Coordinates.moveUpBy(r.coordinates, steps), r.direction)
+
+      case Direction.South =>
+        Rover(Coordinates.moveDownBy(r.coordinates, steps), r.direction)
+
+      case Direction.East =>
+        Rover(Coordinates.moveRightBy(r.coordinates, steps), r.direction)
+
+      case Direction.West =>
+        Rover(Coordinates.moveLeftBy(r.coordinates, steps), r.direction)
+
+    }
+
     if (steps == 0) {
       offGrid(r)
       r

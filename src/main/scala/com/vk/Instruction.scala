@@ -10,6 +10,8 @@ object Instruction {
 
   case object RotateAntiClockwise extends Instruction
 
+  case class ListOfInstructions(list: List[String]) extends Instruction
+
   def getInstructions(r: Rover, i: Instruction): Rover =
     i match {
 

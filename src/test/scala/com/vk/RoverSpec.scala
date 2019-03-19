@@ -28,6 +28,12 @@ class RoverSpec extends FunSpec with Matchers {
 
       actual shouldEqual expected
 
+      val expected1 = Coordinates(0, 10)
+
+      val actual1 = Coordinates.moveUpBy(Coordinates(0, 0), 10)
+
+      actual1 shouldEqual expected1
+
     }
 
   }

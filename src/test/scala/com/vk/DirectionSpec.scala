@@ -9,6 +9,11 @@ class DirectionSpec extends FunSpec with Matchers {
       val start = Direction.North
       Direction.rotateClockwise(start) shouldEqual Direction.East
     }
+
+    it("should rotate anticlockwise") {
+      val start = Direction.North
+      Direction.rotateAntiClockwise(start) shouldEqual Direction.West
+    }
   }
 
 }
