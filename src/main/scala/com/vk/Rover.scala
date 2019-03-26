@@ -47,9 +47,7 @@ object Rover {
 
     if (steps == 0) {
       offGrid(r)
-      r
     } else moveForwardBy(moveForward(r), steps - 1)
-
   }
 
   def offGrid(r: Rover): Rover = {
@@ -59,9 +57,12 @@ object Rover {
     if (r.coordinates.y > grid.y && r.coordinates.x > grid.x)
       Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y - grid.y),
             r.direction)
-    else if (r.coordinates.y > grid.y)
+    else if (r.coordinates.y > grid.y) {
+      println(
+        Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y),
+              r.direction))
       Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y), r.direction)
-    else if (r.coordinates.x > grid.x)
+    } else if (r.coordinates.x > grid.x)
       Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y), r.direction)
     else r
 

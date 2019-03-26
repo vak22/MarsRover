@@ -22,18 +22,29 @@ class RoverSpec extends FunSpec with Matchers {
 
       val rover = Rover(Coordinates(0, 0), Direction.North)
 
+      val steps = 10
+
       val expected = Rover(Coordinates(0, 10), Direction.North)
 
-      val actual = rover.moveForwardBy(10)
+      val actual = rover.moveForwardBy(steps)
 
       actual shouldEqual expected
 
-      val expected1 = Coordinates(0, 10)
+    }
 
-      val actual1 = Coordinates.moveUpBy(Coordinates(0, 0), 10)
+    describe("grid") {
 
-      actual1 shouldEqual expected1
+      it("should not move off grid") {
 
+        val rover = Rover(Coordinates(0, 0), Direction.North)
+
+        val expected = Rover(Coordinates(0, 5), Direction.North)
+
+        val actual = rover.moveForwardBy(15)
+
+        actual shouldEqual expected
+
+      }
     }
 
   }

@@ -1,6 +1,11 @@
 package com.vk
 
-import com.vk.Instruction.{Forward, RotateAntiClockwise, RotateClockwise}
+import com.vk.Instruction.{
+  Forward,
+  ForwardBy,
+  RotateAntiClockwise,
+  RotateClockwise
+}
 import org.scalatest.{FunSpec, Matchers}
 
 class InstructionSpec extends FunSpec with Matchers {
@@ -28,6 +33,14 @@ class InstructionSpec extends FunSpec with Matchers {
       val instruction = Forward
 
       instruction shouldEqual Instruction.Forward
+
+    }
+
+    it("should take instruction of ForwardBy") {
+
+      val instruction = ForwardBy
+
+      instruction shouldEqual Instruction.ForwardBy
 
     }
   }
