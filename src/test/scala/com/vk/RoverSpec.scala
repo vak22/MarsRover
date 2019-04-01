@@ -45,7 +45,17 @@ class RoverSpec extends FunSpec with Matchers {
         actual shouldEqual expected
 
       }
-    }
 
+      it("should be able to wrap around the grid") {
+        val rover = Rover(Coordinates(0, 32), Direction.North)
+
+        val expected = Rover(Coordinates(0, 2), Direction.North)
+
+        val actual = Rover.stayOnGrid(rover, Coordinates.default)
+
+        actual shouldEqual expected
+
+      }
+    }
   }
 }

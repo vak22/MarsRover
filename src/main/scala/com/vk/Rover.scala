@@ -12,6 +12,7 @@ final case class Rover(
 object Rover {
 
   def moveForward(r: Rover): Rover = {
+
     r.direction match {
       case Direction.North =>
         Rover(Coordinates.moveUp(r.coordinates), r.direction)
@@ -26,6 +27,7 @@ object Rover {
         Rover(Coordinates.moveLeft(r.coordinates), r.direction)
 
     }
+    //stayOnGrid(r, r.coordinates)
   }
 
   def moveForwardBy(r: Rover, steps: Int): Rover = {
@@ -46,29 +48,25 @@ object Rover {
     }
 
     if (steps == 0) {
-      offGrid(r)
+      stayOnGrid(r, Coordinates.default)
     } else moveForwardBy(moveForward(r), steps - 1)
   }
 
-  def offGrid(r: Rover): Rover = {
-
-    val grid: Coordinates = Coordinates(10, 10)
-
-    if (r.coordinates.y > grid.y && r.coordinates.x > grid.x)
-      Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y - grid.y),
-            r.direction)
-    else if (r.coordinates.y > grid.y) {
-      println(
-        Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y),
-              r.direction))
-      Rover(Coordinates(r.coordinates.x, r.coordinates.y - grid.y), r.direction)
-    } else if (r.coordinates.x > grid.x)
-      Rover(Coordinates(r.coordinates.x - grid.x, r.coordinates.y), r.direction)
-    else r
-
+  def stayOnGrid(r: Rover, size: Coordinates): Rover = {
+    updateRoverCoords(r,
+                      Coordinates(wrapValue(r.coordinates.x, size.x),
+                                  wrapValue(r.coordinates.y, size.y)))
   }
 
-  Instruction.getInstructions(Rover(Coordinates.zero, Direction.North),
-                              Instruction.Forward)
+  val updateRoverCoords: (Rover, Coordinates) => Rover = (r, c) =>
+    Rover(c, r.direction)
 
+  val wrapValue: (Int, Int) => Int = (value, limit) => value % limit
+
+  // 1: Enter a list of HighLevel instructions
+  // 2: Convert to a List[List[Instruction]]
+  // 3: Flatten
+  // 4: Execute
+
+  //HighLevel.toInstructions(ForwardBy(3), Direction.starting)
 }

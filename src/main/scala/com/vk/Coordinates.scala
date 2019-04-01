@@ -35,6 +35,8 @@ object Coordinates {
 
   val zero: Coordinates = Coordinates(0, 0)
 
+  val default: Coordinates = Coordinates(10, 10)
+
   def plus(a: Coordinates, b: Coordinates): Coordinates =
     Coordinates(a.x + b.x, a.y + b.y)
 
